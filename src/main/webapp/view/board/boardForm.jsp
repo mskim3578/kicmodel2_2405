@@ -1,5 +1,3 @@
-<%@page import="ch08.KicMember"%>
-<%@page import="ch08.KicMemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html >
@@ -7,7 +5,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회원정보수정 - Bootstrap</title>
+<title>회원가입 화면 샘플 - Bootstrap</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -37,41 +35,36 @@ body {
 	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
 }
 </style>
+<script>
+function chkpass(f) {
+	let chk = f.pass.value==f.pass2.value
+	if (!chk) {
+		alert("비밀번호 확인이 틀렸습니다")
+		f.pass2.focus()
+		return false
+	}
+	return true
+}
+</script>
 </head> 
-<%
 
-String id = (String)session.getAttribute("id");
-KicMemberDAO dao=new KicMemberDAO();
-KicMember mem = dao.getMember(id);
-
-%>
 <body>
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-				<h4 class="mb-3">회원정보수정</h4>
+				<h4 class="mb-3">게시판등록</h4>
 				<form class="validation-form" novalidate  
-				    action="memberUpdatePro.jsp"   method="post">
+				    action="boardPro"   method="post"    onsubmit="return chkpass(this)">
 					<div class="row">
-					   <div class="col-md-3 mb-3">
-							<label for="id">사진</label> <img src=""  width="100px"  height="120px">
-							<button   class="btn btn-primary  btn-block">사진업로드</button>
-						</div>
-						<div class="col-md-9 mb-3">
-						<div class="row">
-						<div class="col-md-6 mb-3">
-							<label for="id">아이디</label> <input type="text"
-								class="form-control" id="id" placeholder="아이디" 
-								value="<%=mem.getId() %>" readonly name="id" >
-							<div class="invalid-feedback">아이디을 입력해주세요.</div>
-						</div>
-						<div class="col-md-6 mb-3">
-							<label for="name">이름</label> <input type="text"   name="name"
-								class="form-control" id="name" placeholder="" value="<%=mem.getName() %>"   
+					  
+						
+						<div class="col-md-12 mb-3">
+							<label for="name">작성자</label> <input type="text"   name="name"
+								class="form-control" id="name" placeholder="이름" value=""   
 								required>
 							<div class="invalid-feedback">이름을 입력해주세요.</div>
 						</div>
-					</div></div></div>
+					</div>
 					
 						<div class="row">
 						<div class="col-md-6 mb-3">
@@ -79,43 +72,41 @@ KicMember mem = dao.getMember(id);
 								class="form-control" id="pass" placeholder="비밀번호" value="" required >
 							<div class="invalid-feedback">비밀번호을 입력해주세요.</div>
 						</div>
-						
-					</div>
-					
-						<div class="row">
 						<div class="col-md-6 mb-3">
-							<label for="gender">남자</label> <input type="radio"    name="gender"
-								 id="gender"  value="1" required  <%=mem.getGender()==1 ? "checked" : " " %>>
-						
-						</div>
-						<div class="col-md-6 mb-3">
-							<label for="gender">여자</label> <input type="radio"    name="gender"
-								 id="gender" placeholder="" value="2"  <%=mem.getGender()==2 ? "checked" : " " %>
+							<label for="pass2">비밀번호확인</label> <input type="password"    name="pass2"
+								class="form-control" id="pass2" placeholder="비밀번호확인" value=""  
 								required>
-							
+							<div class="invalid-feedback">비밀번호확인을 입력해주세요.</div>
 						</div>
 					</div>
 					
+					
+					
 					<div class="mb-3">
-						<label for="email">이메일</label> <input type="email"     name="email"  
-						value="<%=mem.getEmail() %>"
-							class="form-control" id="email" 
+						<label for="email">제목</label> <input type="text"     name="subject"
+							class="form-control" id="subject" placeholder="제목"
 							required>
-						<div class="invalid-feedback">이메일을 입력해주세요.</div>
+						<div class="invalid-feedback">제목을 입력해주세요.</div>
 					</div>
 					<div class="mb-3">
-						<label for="tel">전화번호</label> <input type="text"    name="tel"
-							class="form-control" id="tel" placeholder="전화번호"   
-							required  value="<%=mem.getTel()%>">
-						<div class="invalid-feedback">전화번호를 입력해주세요.</div>
+						<label for="tel">내용</label> 
+						<textarea rows="" cols=""   class="form-control" id="content" placeholder="내용"   
+							required  name="content"></textarea>
+						
+						<div class="invalid-feedback">내용을 입력하세요</div>
 					</div>	
 					
-					
+					<div class="mb-3">
+						<label for="email">파일 업로드</label> <input type="file"     name="subject"
+							class="form-control" id="file1"  name="file1"  
+							>
+						
+					</div>
 					
 					
 				
-					<button class="btn btn-primary btn-lg btn-block" type="submit">수정
-						완료</button>
+					<button class="btn btn-primary btn-lg btn-block" type="submit">
+					저장</button>
 				</form>
 			</div>
 		</div>

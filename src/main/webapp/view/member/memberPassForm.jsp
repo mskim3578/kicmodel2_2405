@@ -44,7 +44,7 @@ body {
 			<div class="input-form col-md-12 mx-auto">
 				<h4 class="mb-3  center">비밀번호 수정</h4>
 				<form class="validation-form" novalidate     
-				 action="memberPassPro.jsp"   method="post">
+				 action="memberPassPro"   method="post">
 				
 					<div class="row">
 						<div class="col-md-6 mb-3">

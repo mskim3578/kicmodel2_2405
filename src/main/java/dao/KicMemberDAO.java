@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.KicMember;
 
@@ -66,7 +68,30 @@ public KicMember getMember(String id) {
 	}	
 		return null;
 	}
-	
+public List<KicMember> memberList() {
+	Connection conn = getConnection();
+	PreparedStatement pstmt=null;
+	String sql = "select * from kicmember";
+	List<KicMember>  li = new ArrayList<>();
+	try {
+		pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			KicMember m = new KicMember();
+			m.setId(rs.getString("id"));
+			m.setPass(rs.getString("pass"));
+			m.setName(rs.getString("name"));
+			m.setGender(rs.getInt("gender"));
+			m.setTel(rs.getString("tel"));
+			m.setEmail(rs.getString("email"));
+			m.setPicture(rs.getString("picture"));
+			li.add(m);			} 
+		return li;
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}			return null;	}
+		
 	
 public int insertMember(KicMember kic) {
 	Connection conn = getConnection();

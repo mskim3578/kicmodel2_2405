@@ -40,6 +40,12 @@
     </li>
    </c:if>
     
+     <c:if test="${sessionScope.id eq 'admin' }">
+      <li class="nav-item">
+      <a class="nav-link" href="${pageContext.request.contextPath}/member/memberList">회원리스트</a>
+    </li>
+   
+     </c:if>
     
     <li class="nav-item">
       <a class="nav-link" href="#">공지사항</a>
