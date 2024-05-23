@@ -39,13 +39,17 @@ body {
 <script>
 function chkform(f) {
 	alert(f.pass.value==f.pass2.value)
+	alert("aaaa")
 	if (f.pass.value!=f.pass2.value){
 		f.focus()
 		return false
 	}
 	return true
 }
-
+function win_upload() {
+	let op = "width=500, height=150, left=50, top=150";
+	open("${pageContext.request.contextPath}/member/pictureimgForm", "", op);
+}
 </script>
 <body>
 	<div class="container">
@@ -56,8 +60,8 @@ function chkform(f) {
 				    action="joinPro"   method="post"   onsubmit="return chkform(this)" >
 					<div class="row">
 					   <div class="col-md-3 mb-3">
-							<label for="id">사진</label> <img src=""  width="100px"  height="120px">
-							<button   class="btn btn-primary  btn-block">사진업로드</button>
+							<label for="id">사진</label> <img src=""  width="100px"  height="120px" id="pic">
+							<div   class="btn btn-primary  btn-block" onclick="win_upload()">사진업로드</div>
 						</div>
 						<div class="col-md-9 mb-3">
 						<div class="row">

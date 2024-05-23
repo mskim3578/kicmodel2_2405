@@ -20,7 +20,8 @@ public Connection getConnection() {
 		Class.forName("oracle.jdbc.OracleDriver");
 		Connection conn = DriverManager
 				.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "kic24", "1234");
-        return conn;
+        
+		return conn;
 	} catch (ClassNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

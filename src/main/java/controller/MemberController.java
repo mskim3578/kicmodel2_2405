@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+
 import dao.KicMemberDAO;
 import kic.mskim.MskimRequestMapping;
 import kic.mskim.RequestMapping;
@@ -28,7 +30,7 @@ public class MemberController extends MskimRequestMapping {
 	
 	@RequestMapping("join")
 	public String join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		request.setAttribute("nav", "join");
 		return "/view/member/join.jsp";
 	}
 	@RequestMapping("joinPro")
@@ -76,14 +78,14 @@ public class MemberController extends MskimRequestMapping {
 	KicMemberDAO dao=new KicMemberDAO();
 	KicMember mem = dao.getMember(id);
 	request.setAttribute("mem", mem);
-	
+	request.setAttribute("nav", "joininfo");
 		return "/view/member/joinInfo.jsp";
 	}
 	
 	
 	@RequestMapping("login")
 	public String login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		request.setAttribute("nav", "login");
 		return "/view/member/login.jsp";
 	}
 	
@@ -129,7 +131,7 @@ public class MemberController extends MskimRequestMapping {
 		KicMemberDAO dao=new KicMemberDAO();
 		KicMember mem = dao.getMember(id);
 		request.setAttribute("mem", mem);
-		
+		request.setAttribute("nav", "info");
 		return "/view/member/memberUpdateForm.jsp";
 	}
 	
@@ -221,6 +223,39 @@ public class MemberController extends MskimRequestMapping {
 
 		return "/view/member/memberPassForm.jsp";
 	}
+	
+	
+	@RequestMapping("pictureimgForm")
+	public String pictureimgForm(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		
+		return "/single/pictureimgForm.jsp";
+	}
+	
+	@RequestMapping("picturePro")
+	public String picturePro(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		 String path = 	request.getServletContext().getRealPath("/")
+				 +"/img/member/picture/";
+	        System.out.println(path);
+	        String filename=null;
+	        MultipartRequest multi =
+	        		new MultipartRequest(request, path,10*1024*1024,"UTF-8");
+	        filename = multi.getFilesystemName("picture");
+	        
+	        System.out.println(filename);
+	        request.setAttribute("filename", filename);
+	        
+	        
+	        
+	        
+	        
+	        
+		return "/single/picturePro.jsp";
+	}
+	
+	
+	
 	
 	@RequestMapping("memberPassPro")
 	public String memberPassPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

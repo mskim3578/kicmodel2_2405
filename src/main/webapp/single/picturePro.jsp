@@ -6,8 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-index 입니다
-<%  response.sendRedirect(request.getContextPath()+"/member/login"); %>
-</body>
-</html>
+<script>
+let img = opener.document.getElementById("pic")
+img.src
+="${pageContext.request.contextPath}/img/member/picture/${filename}";
+alert(img.src)
+</script>
+<body></body></html>

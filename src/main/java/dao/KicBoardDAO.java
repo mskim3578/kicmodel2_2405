@@ -57,7 +57,7 @@ public class KicBoardDAO {
 	public List<KicBoard> boardList() {
 		Connection conn = getConnection();
 		PreparedStatement pstmt = null;
-		String sql = "select * from kicboard";
+		String sql = "select * from kicboard  order by num desc";
 		List<KicBoard> li = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -82,5 +82,82 @@ public class KicBoardDAO {
 		}
 		return null;
 	}
-
+	
+	public KicBoard getBoard(int num) {
+		Connection conn = getConnection();
+		PreparedStatement pstmt=null;
+		String sql = 
+		"select * from kicBoard where num = ?";
+		//4. mapping
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				KicBoard board = new KicBoard();
+				//id 있음
+				board.setNum(rs.getInt("num"));
+				board.setName(rs.getString("name"));
+				board.setPass(rs.getString("pass"));
+				board.setSubject(rs.getString("subject"));
+				board.setContent(rs.getString("content"));
+				board.setFile1(rs.getString("file1"));
+				board.setReadcnt(rs.getInt("readcnt"));
+			
+				
+				
+			return board;
+			} else {
+				return null;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+			return null;
+	}
+	
+	public int boardUpdate(KicBoard board) {
+		Connection conn = getConnection();
+		PreparedStatement pstmt=null;
+		String sql = 
+		"update kicboard set name=?, subject=?, content=?, file1=? "
+		+ " where num = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getName());
+			pstmt.setString(2, board.getSubject());
+			pstmt.setString(3, board.getContent());
+			pstmt.setString(4, board.getFile1());
+			pstmt.setInt(5, board.getNum());			
+			int num = pstmt.executeUpdate();
+			return num;			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
+	public int boardDelete(int num) {
+		Connection conn = getConnection();
+		PreparedStatement pstmt=null;
+		String sql = 
+		"delete from kicboard where num=? ";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+					
+			int count = pstmt.executeUpdate();
+			return count;			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
 } // end class

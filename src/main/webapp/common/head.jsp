@@ -14,14 +14,31 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+.navurl {
+ color: #142745;
+ font-weight: 900;
+}
+a {
+/* color: inherit; */
+text-decoration: none;
+}
+</style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-light">
+<nav class="navbar navbar-expand-sm  bg-light">
   <ul class="navbar-nav">
+   <li class="nav-item">
+  <a class="navbar-brand" 
+  href="${pageContext.request.contextPath}/member/index">
+    <img src="${pageContext.request.contextPath}/img/logo.png" 
+    alt="Logo" style="width:40%;"/>
+  </a> 
+ </li>
+ 
   <c:if test="${sessionScope.id==null }">
-   
-    <li class="nav-item">
+    <li class="nav-item ">
       <a class="nav-link" href="${pageContext.request.contextPath}/member/join">회원가입</a>
     </li>
     <li class="nav-item">
@@ -48,10 +65,10 @@
      </c:if>
     
     <li class="nav-item">
-      <a class="nav-link" href="#">공지사항</a>
+      <a class="nav-link" href="${pageContext.request.contextPath}/board/boardList">공지사항</a>
     </li>
+    
+    
   </ul>
 </nav>
 <br>
-</body>
-</html>
