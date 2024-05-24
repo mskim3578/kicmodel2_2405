@@ -19,7 +19,9 @@
 				<tr><td>gender</td><td>${mem.gender==1?"남자":"여자"}</td><tr>
 				<tr><td>tel</td><td>${mem.tel}</td><tr>
 				<tr><td>email</td><td>${mem.email}</td><tr>
-				<tr><td>picture</td><td>&nbsp;</td><tr>
+				<tr><td>picture</td><td>
+				<img src="${pageContext.request.contextPath}/img/member/picture/${mem.picture}" 
+				                  width="100px"  height="120px" />&nbsp;</td><tr>
 				
 				<tr>
 				<td colspan="2" >

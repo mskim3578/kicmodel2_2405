@@ -35,6 +35,12 @@ body {
 	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
 }
 </style>
+<script>
+function win_upload() {
+	let op = "width=500, height=150, left=50, top=150";
+	open("${pageContext.request.contextPath}/member/pictureimgForm", "", op);
+}
+</script>
 </head> 
 
 <body>
@@ -42,12 +48,14 @@ body {
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
 				<h4 class="mb-3">회원정보수정</h4>
-				<form class="validation-form" novalidate  
+				<form class="validation-form" novalidate  name="joinform"
 				    action="memberUpdatePro"   method="post">
+				    <input type="hidden"  name="picture" />
 					<div class="row">
 					   <div class="col-md-3 mb-3">
-							<label for="id">사진</label> <img src=""  width="100px"  height="120px">
-							<button   class="btn btn-primary  btn-block">사진업로드</button>
+							<label for="id">사진</label> <img src="${pageContext.request.contextPath}/img/member/picture/${mem.picture}"  
+							id="pic" width="100px"  height="120px">
+							<button   class="btn btn-primary  btn-block" onclick="win_upload()" >사진업로드</button>
 						</div>
 						<div class="col-md-9 mb-3">
 						<div class="row">

@@ -53,7 +53,7 @@ function chkpass(f) {
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
 				<h4 class="mb-3">게시판등록</h4>
-				<form class="validation-form" novalidate  
+				<form class="validation-form" novalidate   enctype="multipart/form-data"
 				    action="boardPro"   method="post"    onsubmit="return chkpass(this)">
 					<div class="row">
 					  
@@ -97,8 +97,9 @@ function chkpass(f) {
 					</div>	
 					
 					<div class="mb-3">
-						<label for="email">파일 업로드</label> <input type="file"     name="subject"
-							class="form-control" id="file1"  name="file1"  
+						<label for="email">파일 업로드</label> 
+						<input type="file"  class="form-control" 
+						id="file1"  name="file1"  
 							>
 						
 					</div>

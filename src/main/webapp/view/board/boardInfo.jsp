@@ -19,7 +19,10 @@
 				<tr><td>작성자</td><td>${board.name}</td><tr>
 				<tr><td>글제목</td><td>${board.subject}</td><tr>
 				<tr><td>내용</td><td>${board.content}</td><tr>
-				<tr><td>이미지</td><td>${board.file1}</td><tr>
+				<tr><td>이미지</td><td>
+				<img src="${pageContext.request.contextPath}/img/board/${board.file1}" />
+				</td>
+				<tr>
 				
 				
 				<tr  class="text-center">
@@ -32,7 +35,7 @@
 	href="${pageContext.request.contextPath}/board/boardDeleteForm?num=${board.num}">
 	글삭제</a>
 				<a class="btn btn-primary"
-	href="${pageContext.request.contextPath}/board/boardList">
+	href="${pageContext.request.contextPath}/board/boardList?boardid=${sessionScope.boardid}">
 	글목록</a>
 				</td>
 			</tr>

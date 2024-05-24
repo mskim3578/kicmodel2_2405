@@ -109,7 +109,7 @@ public int insertMember(KicMember kic) {
 		pstmt.setInt(4, kic.getGender());
 		pstmt.setString(5, kic.getTel());
 		pstmt.setString(6, kic.getEmail());
-		pstmt.setString(7, "");
+		pstmt.setString(7, kic.getPicture());  //1
 		//sql 실행
 		int num = pstmt.executeUpdate();
 		
@@ -129,15 +129,16 @@ public int updateMember(KicMember kic) {
 	//3. PreparedStatement
 	PreparedStatement pstmt=null;
 	String sql = 
-	"update kicmember set name=?, gender=?, tel=?, email=? where id = ?";
-	//4. mapping
+	"update kicmember set name=?, gender=?, tel=?, email=?, picture=? where id = ?";
+	
 	try {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, kic.getName());
 		pstmt.setInt(2, kic.getGender());
 		pstmt.setString(3, kic.getTel());
 		pstmt.setString(4, kic.getEmail());
-		pstmt.setString(5, kic.getId());
+		pstmt.setString(6, kic.getId());
+		pstmt.setString(5, kic.getPicture());  //2
 		//sql 실행
 		int num = pstmt.executeUpdate();
 		

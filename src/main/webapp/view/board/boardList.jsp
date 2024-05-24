@@ -11,8 +11,9 @@
 </head>
 <body>
 	<div class="container">
+	<h4 class="text-center">${boardName }[${count}]</h4>
 	<a class="btn btn-primary float-right m-2"   
-    href="${pageContext.request.contextPath}/board/boardForm" >게시판 입력</a>
+    href="${pageContext.request.contextPath}/board/boardForm?boardid=${boardid}" >게시판 입력</a>
 	
 	<table class="table">
 	<thead>
@@ -22,9 +23,11 @@
 	</tr>	
 	</thead>
 	<tbody>
+	<c:set var="count"  value="${count}" />
 	<c:forEach  var="m"    items="${li}">
 	<tr>
-	  <td>${m.num}</td>
+	  <td>${count}</td>
+	  <c:set var="count"  value="${count-1}" />
 	  <td>${m.name}</td>
       <td><a  href="${pageContext.request.contextPath}/board/boardInfo?num=${m.num}">${m.subject}</a></td>
       <td>${m.file1}</td>
