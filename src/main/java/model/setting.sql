@@ -25,4 +25,30 @@ boardid varchar(1)
 create sequence kicboardseq;
 
 
+--Comment
+drop table boardcomment;
+create table boardcomment (
+ser int primary key,
+num int,      --board num
+content varchar(2000),
+id varchar(20),
+regdate date);
+
+
+drop sequence boardcomseq;
+create sequence boardcomseq;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

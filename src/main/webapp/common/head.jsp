@@ -25,7 +25,7 @@
 <body>
 
 <nav class="navbar navbar-expand-sm  bg-light">
-  <ul class="navbar-nav">
+  <ul class="navbar-nav    border-end border-info">
    <li class="nav-item">
   <a class="navbar-brand" 
   href="${pageContext.request.contextPath}/member/index">
@@ -62,13 +62,13 @@
      </c:if>
     
     <li class="nav-item">
-      <a class="nav-link  ${boardid eq '1' ? 'nav': ' ' }" href="${pageContext.request.contextPath}/board/boardList?boardid=1">공지사항</a>
+      <a class="nav-link  ${nav eq '1' ? 'nav': ' ' }" href="${pageContext.request.contextPath}/board/boardList?boardid=1">공지사항</a>
     </li>
      <li class="nav-item">
-      <a class="nav-link  ${boardid eq '2' ? 'nav': ' ' }" href="${pageContext.request.contextPath}/board/boardList?boardid=2">자유게시판</a>
+      <a class="nav-link  ${nav eq '2' ? 'nav': ' ' }" href="${pageContext.request.contextPath}/board/boardList?boardid=2">자유게시판</a>
     </li>
-     <li class="nav-item">
-      <a class="nav-link  ${boardid eq '3' ? 'nav': ' ' }" href="${pageContext.request.contextPath}/board/boardList?boardid=3">QnA</a>
+     <li class="nav-item ">
+      <a class="nav-link  ${nav eq '3' ? 'nav': ' ' }" href="${pageContext.request.contextPath}/board/boardList?boardid=3">QnA</a>
     </li>
     
     

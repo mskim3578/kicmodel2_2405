@@ -55,7 +55,7 @@ function win_upload() {
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-				<h4 class="mb-3">회원가입</h4>
+				<h4 class="mb-3  text-center">회원가입</h4>
 				<form class="validation-form" novalidate  name="joinform"
 				    action="joinPro"   method="post"   onsubmit="return chkform(this)" >
 				    <input type="hidden"  name="picture">

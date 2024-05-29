@@ -15,6 +15,7 @@ import dao.KicBoardDAO;
 import dao.KicMemberDAO;
 import kic.mskim.MskimRequestMapping;
 import kic.mskim.RequestMapping;
+import model.Comment;
 import model.KicBoard;
 import model.KicMember;
 
@@ -23,9 +24,15 @@ public class BoardController extends MskimRequestMapping {
 	
 	HttpSession session;
 	
+	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	session= request.getSession();	
+	String nav=(String) session.getAttribute("boardid");
+	String boardName=(String) session.getAttribute("boardName");
+	request.setAttribute("nav", nav);
+	request.setAttribute("boardName", boardName);
+	
 	super.service(request, response);
 	}
 	
@@ -42,17 +49,36 @@ public class BoardController extends MskimRequestMapping {
 	}
 	@RequestMapping("boardInfo")
 	public String boardInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //http://localhost:8080/kicmodel2/board/boardInfo?num=10
-		
+   	
 		int num = Integer.parseInt(request.getParameter("num"));
 		System.out.println(num);
 		KicBoardDAO  dao = new KicBoardDAO();
-		int count = dao.addReadCount(num);
+		dao.addReadCount(num);  //readcnt++
+		int count =dao.getCommmentCount(num);
 		KicBoard board = dao.getBoard(num);
-		
+		List<Comment> li = dao.commentList(num);
 		request.setAttribute("board", board);
+		request.setAttribute("li", li);
+		request.setAttribute("count", count);
+		
 		return "/view/board/boardInfo.jsp";
 	}
+	
+	
+	@RequestMapping("boardCommentPro")
+	public String boardCommentPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   	    String comment = request.getParameter("comment");
+   	    int boardnum  = Integer.parseInt(request.getParameter("boardnum"));
+		String id = (String) session.getAttribute("id");
+		KicBoardDAO  dao = new KicBoardDAO();
+		dao.insertComment(comment,boardnum,id  );	
+		int count =dao.getCommmentCount(boardnum);		
+		request.setAttribute("comment", comment);
+		request.setAttribute("count", count);
+		return "/single/boardCommentPro.jsp";
+	}
+	
+	
 	
 	@RequestMapping("boardUpdateForm")
 	public String boardUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -140,6 +166,13 @@ public class BoardController extends MskimRequestMapping {
 		KicBoardDAO dao=new KicBoardDAO();
 		String boardid = request.getParameter("boardid");
 		session.setAttribute("boardid", boardid);
+	    if (session.getAttribute("boardid")==null) boardid="1"; //1
+		
+		String pageNum = request.getParameter("pageNum");//2
+		session.setAttribute("pageNum", pageNum);//3
+		 if (session.getAttribute("pageNum")==null) pageNum="1";  //4
+		
+		
 		String boardName="";
 		switch (boardid) {
 		case "1" : boardName="공지사항"; break;
@@ -147,13 +180,33 @@ public class BoardController extends MskimRequestMapping {
 		case "3" : boardName="QnA"; break;
 		default : boardName="공지사항";
 		}
+		session.setAttribute("boardName", boardName);
 		int count = dao.boardCount(boardid);
-		List<KicBoard> li = dao.boardList(boardid);
+		int limit = 3;
+		int pageInt = Integer.parseInt(pageNum);
+		int boardNum = count - ((pageInt-1)*limit);  //page의 ser계산
+		
+		int bottomLine = 3;
+		int start = (pageInt - 1) / bottomLine * bottomLine + 1;//1,2,3->1 , 4,5,6->4
+		int end = start + limit -1 ;// 1~ 3, 4~6, 7~9
+		int maxPage = (count / limit) + (count % limit == 0 ? 0 : 1);
+		if (end > maxPage) 			end = maxPage;
+		
+		List<KicBoard> li = dao.boardList(boardid, pageInt, limit);
+		
+		request.setAttribute("bottomLine", bottomLine);
+		request.setAttribute("start", start);
+		request.setAttribute("end", end);
+		request.setAttribute("maxPage", maxPage);
+		request.setAttribute("pageInt", pageInt);
+		request.setAttribute("boardNum", boardNum);
+		
 		request.setAttribute("boardName", boardName);	
 		request.setAttribute("li", li);	
 		request.setAttribute("boardid", boardid);	
 		request.setAttribute("nav", boardid);
 		request.setAttribute("count", count);
+	
 		
 		return "/view/board/boardList.jsp";
 	}
